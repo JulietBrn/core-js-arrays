@@ -21,11 +21,7 @@
  *    getIntervalArray(3, 3) => [ 3 ]
  */
 function getIntervalArray(start, end) {
-  const newArr = [start];
-  for (let i = start; i < end; i += 1) {
-    newArr.push(i + 1);
-  }
-  return newArr;
+  return Array.from({ length: (end - start) / 1 + 1 }, (_, i) => start + i);
 }
 
 /**
@@ -209,7 +205,7 @@ function insertItem(arr, item, index) {
  *    getHead([ 'a', 'b', 'c', 'd'], 0) => []
  */
 function getHead(arr, n) {
-  return arr.toSpliced(n, arr.length);
+  return arr.slice(0, n);
 }
 
 /**
