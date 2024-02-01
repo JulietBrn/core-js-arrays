@@ -39,14 +39,13 @@ function getIntervalArray(start, end) {
  */
 function sumArrays(arr1, arr2) {
   const sumOfArrs = [];
-  // const biggerArr = arr1.length > arr2.length ? 1 : 2;
   if (arr1.length > arr2.length) {
-    arr1.forEach((el, i) => {
-      sumOfArrs.push(arr1[i] + (arr2[i] || 0));
+    arr1.map((el, i) => {
+      return sumOfArrs.push(arr1[i] + (arr2[i] || 0));
     });
   } else {
-    arr2.forEach((el, i) => {
-      sumOfArrs.push((arr1[i] || 0) + arr2[i]);
+    arr2.map((el, i) => {
+      return sumOfArrs.push((arr1[i] || 0) + arr2[i]);
     });
   }
   return sumOfArrs;
@@ -83,13 +82,8 @@ function findElement(arr, value) {
  *    findAllOccurrences([ true, 0, 1, 'true' ], true) => 1
  */
 function findAllOccurrences(arr, item) {
-  let i = 0;
-  arr.forEach((val) => {
-    if (val === item) {
-      i += 1;
-    }
-  });
-  return i;
+  const i = arr.filter((val) => val === item);
+  return i.length;
 }
 
 /**
@@ -284,8 +278,12 @@ function distinct(arr) {
  *    createNDimensionalArray(4, 2) => [[[[0, 0], [0, 0]], [[0, 0], [0, 0]]], [[[0, 0], [0, 0]], [[0, 0], [0, 0]]]]
  *    createNDimensionalArray(1, 1) => [0]
  */
-function createNDimensionalArray(/* n, size */) {
-  throw new Error('Not implemented');
+function createNDimensionalArray(n, size) {
+  let res = new Array(size).fill(0);
+  for (let i = 1; i < n; i += 1) {
+    res = new Array(size).fill(res);
+  }
+  return res;
 }
 
 /**
@@ -390,8 +388,13 @@ function generateOdds(len) {
  *   getElementByIndices(['one','two','three'], [2]) => 'three'  (arr[2])
  *   getElementByIndices([[[ 1, 2, 3]]], [ 0, 0, 1 ]) => 2        (arr[0][0][1])
  */
-function getElementByIndices(/* arr, indices */) {
-  throw new Error('Not implemented');
+function getElementByIndices(arr, indices) {
+  let el = arr;
+  for (let i = 0; i < indices.length; i += 1) {
+    const ind = indices[i];
+    el = el[ind];
+  }
+  return el;
 }
 
 /**
@@ -478,8 +481,11 @@ function getIndicesOfOddNumbers(numbers) {
  *    getHexRGBValues([ 0, 255, 16777215]) => [ '#000000', '#0000FF', '#FFFFFF' ]
  *    getHexRGBValues([]) => []
  */
-function getHexRGBValues(/* arr */) {
-  throw new Error('Not implemented');
+function getHexRGBValues(arr) {
+  const symb = `#`;
+  return arr.map(
+    (val) => `${symb.concat(val.toString(16).toUpperCase().padStart(6, 0))}`
+  );
 }
 
 /**
@@ -599,8 +605,16 @@ function propagateItemsByPositionIndex(arr) {
  *    shiftArray(['a', 'b', 'c', 'd'], -1) => ['b', 'c', 'd', 'a']
  *    shiftArray([10, 20, 30, 40, 50], -3) => [40, 50, 10, 20, 30]
  */
-function shiftArray(/* arr, n */) {
-  throw new Error('Not implemented');
+function shiftArray(arr, n) {
+  let newArr;
+  if (n > 0) {
+    const shiftPart = arr.splice(n + 1);
+    newArr = [...shiftPart, ...arr];
+  } else {
+    const shiftPart = arr.slice(0, Math.abs(n));
+    newArr = [...arr.slice(Math.abs(n)), ...shiftPart];
+  }
+  return newArr;
 }
 
 /**
